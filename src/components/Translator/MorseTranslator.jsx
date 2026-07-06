@@ -2,20 +2,19 @@ import { useState } from "react";
 import classes from "./MorseTranslator.module.scss";
 import InputBox from "../InputBox/InputBox";
 import OutputBox from "../OutputBox/OutputBox";
-import morseCode from "../../data/morse-code.json";
+import { textToMorse, inputIsText, morseToText } from "../utils/morse";
 
 export default function MorseTranslator() {
   const [text, setText] = useState("");
-  const [, forceRender] = useState(0);
-  let output = "";
 
-  const translateToMorse = (toTranslate) => {
-    let input = toTranslate.replace(/[^A-Za-z]/g, "").toUpperCase();
-    for (const char of input) {
-      output += morseCode[char];
-    }
-  };
-  translateToMorse(text);
+  if (!text) {
+    console.log("ruh roh");
+  }
+  let output = text
+    ? inputIsText(text)
+      ? textToMorse(text)
+      : morseToText(text)
+    : "";
 
   return (
     <div className={classes.translator}>
