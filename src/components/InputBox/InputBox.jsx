@@ -1,9 +1,11 @@
 export default function InputBox({ value, onChange }) {
   return (
-    <textarea
-      placeholder="type something..."
-      value={value}
-      onChange={onChange}
-    ></textarea>
+    <div>
+      <textarea
+        placeholder="type text or morse code..."
+        value={value}
+        onChange={onChange}
+      ></textarea>
+    </div>
   );
 }

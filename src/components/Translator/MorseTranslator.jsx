@@ -6,7 +6,6 @@ import { textToMorse, inputIsText, morseToText } from "../utils/morse";
 
 export default function MorseTranslator() {
   const [text, setText] = useState("");
-
   let output = "";
   let error = "";
   try {
@@ -22,6 +21,9 @@ export default function MorseTranslator() {
   return (
     <div className={classes.translator}>
       <h1 className={classes.heading}>Morse Code Translator</h1>
+      <p className={classes.description}>
+        Interactive translator between Latin (English) text and Morse Code.
+      </p>
 
       <div className={classes.textbox}>
         <InputBox
