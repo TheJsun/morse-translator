@@ -22,14 +22,13 @@ export const inputIsText = (inputText) => {
 
 export const morseToText = (morseInput) => {
   let input = morseInput.replace(/\s+/g, " ").split(" ");
-  console.log(input);
   let output = "";
 
-  for (const word of input) {
-    if (!englishCode[word]) {
-      return "";
+  for (const code of input) {
+    if (!englishCode[code]) {
+      throw new Error(`Invalid morse code: "${code}"`);
     }
-    output += englishCode[word];
+    output += englishCode[code];
   }
   return output.trim();
 };

@@ -7,14 +7,17 @@ import { textToMorse, inputIsText, morseToText } from "../utils/morse";
 export default function MorseTranslator() {
   const [text, setText] = useState("");
 
-  if (!text) {
-    console.log("ruh roh");
+  let output = "";
+  let error = "";
+  try {
+    output = text
+      ? inputIsText(text)
+        ? textToMorse(text)
+        : morseToText(text)
+      : "";
+  } catch (err) {
+    error = err.message;
   }
-  let output = text
-    ? inputIsText(text)
-      ? textToMorse(text)
-      : morseToText(text)
-    : "";
 
   return (
     <div className={classes.translator}>
@@ -31,6 +34,7 @@ export default function MorseTranslator() {
       <div className={classes.textbox}>
         <OutputBox value={output} />
       </div>
+      {error && <p className={classes.error}>{error}</p>}
     </div>
   );
 }
