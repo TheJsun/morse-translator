@@ -1,16 +1,88 @@
-# React + Vite
+# Morse Code Translator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A minimal, two-way Morse code translator built with React. Type either English or Morse code into a single input box, and the translation appears automatically.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Bidirectional translation**: automatically detects whether the input is English or Morse code and translates accordingly
+- **Live translation**: output updates on every keystroke
+- **Input sanitisation**: strips unsupported characters before translating
+- **Copy to clipboard**: one-click copy of the translated output
+- **Responsive layout**: adapts sizing and spacing across breakpoints
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React**: component-based UI
+- **Vite**: dev server and build tooling
+- **Jest**: unit testing framework
+- **React Testing Library**: component-level testing (rendering, user interaction)
+- **JavaScript**: (ES6+)
+- **SCSS**: component-scoped styles via CSS modules, shared variables and breakpoint mixins
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+src/
+  components/
+    Translator/
+      MorseTranslator.jsx        # owns state, computes translation
+      MorseTranslator.module.scss
+    InputBox/
+      InputBox.jsx                # controlled textarea for user input
+    OutputBox/
+      OutputBox.jsx                # read-only textarea + copy button
+      OutputBox.module.scss
+    utils/
+      morse.jsx                   # translation logic, direction detection, sanitization
+      morse.test.js
+  data/
+    morse-code.json                # English → Morse character mapping
+  scss/
+    variables/_variables.scss      # theme colors (CSS custom properties)
+  App.jsx
+```
+
+## Getting Started
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the dev server:
+
+```bash
+npm run dev
+```
+
+Build for production:
+
+```bash
+npm run build
+```
+
+## Testing
+
+Tests are written with Jest and cover the translation logic in `components/utils/morse.jsx`, including:
+
+- English → Morse translation (single words, multi-word phrases, digits, case-insensitivity)
+- Morse → English translation, including extra whitespace handling
+- Special-character handling and empty-string input
+- Invalid Morse code raises an error
+
+Direction detection (`inputIsText`) and round-trip translation aren't covered by tests yet.
+
+Run the test suite:
+
+```bash
+npm test
+```
+
+## How It Works
+
+Morse code uses a fixed, narrow alphabet: dots (`.`), dashes (`-`), spaces, and slashes (`/`) as word separators. Direction detection (`inputIsText`) works by checking whether the input contains any Latin letters or digits — if so, it's treated as English and encoded to Morse; otherwise, it's treated as Morse and decoded to English.
+
+The Morse → English mapping is generated automatically from the English → Morse mapping (rather than maintained as a separate, hand-written table), so the two can never drift out of sync.
+
+Copying the output uses `navigator.clipboard`, which requires a secure context (HTTPS or `localhost`).

@@ -23,6 +23,8 @@ export default function MorseTranslator() {
       <h1 className={classes.heading}>Morse Code Translator</h1>
       <p className={classes.description}>
         Interactive translator between Latin (English) text and Morse Code.
+        <br />
+        Begin by typing in the box below.
       </p>
 
       <div className={classes.textbox}>
