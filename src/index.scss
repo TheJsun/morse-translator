@@ -1,2 +1,7 @@
-@use './scss/normalize';
-@use './scss/variables/variables' as *;
+@use "./scss/normalize";
+@use "./scss/variables/variables" as *;
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+}

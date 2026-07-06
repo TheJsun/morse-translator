@@ -1,9 +1,12 @@
-import './App.scss';
+import "./App.scss";
+import MorseTranslator from "./components/Translator/MorseTranslator.jsx";
 
 function App() {
   return (
     <>
-      <h1>Hello World</h1>
+      <div>
+        <MorseTranslator />
+      </div>
     </>
   );
 }
